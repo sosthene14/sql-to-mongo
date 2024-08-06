@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Articles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        .container {
+            max-width: 1200px;
+        }
+        .export-button {
+            margin-top: 1rem;
+        }
+        .actions-button {
+            display: flex;
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">Liste des Articles</h1>
+                <p class="subtitle">Gérez vos articles et exportez vos données</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="buttons">
+                <a class="button is-primary" href="{% url 'article_create' %}">Créer un nouvel article</a>
+                <a class="button  is-primary " href="{% url 'export_database' %}">Exporter la base de données</a>
+            </div>
+
+            <table class="table is-fullwidth is-striped is-bordered">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Date de création</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.created_at }}</td>
+                        <td class="actions-button">
+                            <a class="button is-small is-info" href="{% url 'article_update' article.id_str %}">Modifier</a>
+                            <a class="button is-small is-danger" href="{% url 'article_delete' article.id_str %}">Supprimer</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
